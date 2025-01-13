@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import setJobRoutes from './routes/jobRoutes';
 import dotenv from 'dotenv';
 import { connectDB } from './config/database';
-
+import {setupSwagger} from "./config/swagger";
 dotenv.config();
 
 const app = express();
@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 
 // Connect to the database
 connectDB().then(() => {
+    setupSwagger(app);
     // Set up routes after the database connection is established
     setJobRoutes(app);
 
