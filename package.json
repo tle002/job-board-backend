@@ -2,6 +2,14 @@
   "name": "job-board-backend",
   "version": "1.0.0",
   "description": "A simple job board backend using Node.js, TypeScript, and MySQL.",
+  "homepage": "https://github.com/tle002/job-board-backend#readme",
+  "bugs": {
+    "url": "https://github.com/tle002/job-board-backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tle002/job-board-backend.git"
+  },
   "license": "ISC",
   "author": "",
   "type": "commonjs",
