@@ -1,5 +1,5 @@
 // filepath: /g:/DJ Archieve/Desktop/Projects/job-board-backend/src/routes/jobRoutes.ts
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import JobController from '../controllers/jobController';
 import { JobService } from '../services/jobService';
 
@@ -8,6 +8,9 @@ const jobService = new JobService();
 const jobController = new JobController(jobService);
 
 const setJobRoutes = (app: any) => {
+    app.get('/', (req: Request, res: Response) => {
+        res.redirect('/api-docs');
+    });
     app.use('/jobs', router);
 
 
