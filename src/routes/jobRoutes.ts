@@ -18,4 +18,3 @@ const setJobRoutes = (app: any) => {
 };
 
 export default setJobRoutes;
-//post request not workig
