@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Define the job creation function
+create_jobs() {
+  for i in {1..20}
+  do
+    curl -X POST http://localhost:3000/jobs \
+    -H "Content-Type: application/json" \
+    -d '{
+      "title": "Job Title '"$i"'",
+      "company": "Company '"$i"'",
+      "location": "Location '"$i"'",
+      "salary": '"$((i * 1000))"',
+      "description": "Description for job '"$i"'"
+    }'
+  done
+  echo "20 jobs created successfully"
+}
+
+# Call the job creation function
+create_jobs

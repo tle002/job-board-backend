@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: job_board_db
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: job_board
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - job_board_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - job_board_network
+
+  server:
+    container_name: job_board_server
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - DB_NAME=job_board
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - DB_HOST=job_board_db
+      - DB_PORT=3306
+    depends_on:
+      - db
+    networks:
+      - job_board_network
+
+volumes:
+  db_data:
+
+networks:
+  job_board_network:
+    driver: bridge
