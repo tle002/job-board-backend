@@ -12,10 +12,13 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 // Connect to the database
-connectDB();
+connectDB().then(() => {
+    // Set up routes after the database connection is established
+    setJobRoutes(app);
 
-setJobRoutes(app);
-
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+}).catch((error) => {
+    console.error('Failed to connect to the database:', error);
 });

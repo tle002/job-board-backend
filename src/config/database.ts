@@ -1,6 +1,5 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
-import Job from '../models/jobModel';
 
 dotenv.config();
 
@@ -18,7 +17,7 @@ export const connectDB = async () => {
         console.log('MySQL connected');
 
         // Sync all models
-        await sequelize.sync({ force: true }); // Set force to true to drop and recreate tables
+        await sequelize.sync({ force: false }); // Set force to true to drop and recreate tables
         console.log('All models were synchronized successfully.');
     } catch (error) {
         console.error('MySQL connection error:', error);
@@ -29,3 +28,5 @@ export const connectDB = async () => {
 export const getConnection = async () => {
     return sequelize;
 };
+
+export default sequelize;
