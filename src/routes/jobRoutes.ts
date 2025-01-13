@@ -9,7 +9,7 @@ const jobController = new JobController(jobService);
 
 const setJobRoutes = (app: any) => {
     app.use('/jobs', router);
-
+    
     router.post('/', (req, res) => jobController.createJob(req, res));
     router.get('/', (req, res) => jobController.getAllJobs(req, res));
     router.get('/:id', (req, res) => jobController.getJobById(req, res));

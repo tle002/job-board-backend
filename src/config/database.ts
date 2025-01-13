@@ -1,22 +1,25 @@
-import { createPool } from 'mysql2/promise';
+import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
+import Job from '../models/jobModel';
 
 dotenv.config();
 
-const pool = createPool({
+const sequelize = new Sequelize({
+    dialect: 'mysql',
     host: process.env.DB_HOST,
-    user: process.env.DB_USER,
+    username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
 });
 
 export const connectDB = async () => {
     try {
-        await pool.getConnection();
+        await sequelize.authenticate();
         console.log('MySQL connected');
+
+        // Sync all models
+        await sequelize.sync({ force: false }); // Set force to true to drop and recreate tables
+        console.log('All models were synchronized successfully.');
     } catch (error) {
         console.error('MySQL connection error:', error);
         process.exit(1);
@@ -24,5 +27,5 @@ export const connectDB = async () => {
 };
 
 export const getConnection = async () => {
-    return await pool.getConnection();
+    return sequelize;
 };
